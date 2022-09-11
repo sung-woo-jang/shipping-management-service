@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreatePaymentDto } from './dto/create-payment.dto';
-import { Payment, PayState } from './entities/payment.entity';
+import { Payment } from './entities/payment.entity';
 
 @Injectable()
 export class PaymentService {
@@ -23,5 +23,14 @@ export class PaymentService {
     const list = await this.paymentRepository.find();
 
     return list;
+  }
+
+  async getPaymentFilter(status: string) {
+    const queryResult = await this.paymentRepository
+      .createQueryBuilder('payment')
+      .andWhere('payment.pay_state = :status', { status })
+      .getMany();
+
+    return queryResult;
   }
 }
