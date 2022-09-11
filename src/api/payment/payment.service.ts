@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Buyr } from '../buyr/entities/buyr.entity';
 import { CreatePaymentDto } from './dto/create-payment.dto';
-import { Payment } from './entities/payment.entity';
+import { UpdateDeliveryStateDto } from './dto/update-payment.dto';
+import { DeliveryState, Payment } from './entities/payment.entity';
 
 @Injectable()
 export class PaymentService {
@@ -26,7 +27,7 @@ export class PaymentService {
       .values({ ...createPaymentDto, buyr })
       .execute();
 
-    return payment;
+    return payment.raw;
   }
 
   async getPaymentList() {
@@ -40,7 +41,7 @@ export class PaymentService {
         'payment.price as price',
         'buyr.city',
         'buyr.country',
-        'buyr.zpix',
+        'buyr.zipx',
         'buyr.vccode',
         'payment.delivery_num as delivery_num',
       ])
@@ -48,28 +49,6 @@ export class PaymentService {
 
     return list;
   }
-  /* 
-      {
-            "payment_id": 1,
-            "payment_create_at": "2022-09-11T07:41:04.625Z",
-            "payment_update_at": "2022-09-11T07:41:04.625Z",
-            "payment_delete_at": null,
-            "payment_pay_state": "결제완료",
-            "payment_quantity": 2,
-            "payment_price": 10000,
-            "payment_delivery_num": "450784629761",
-            "payment_buyr_id": 1,
-            "buyr_id": 1,
-            "buyr_create_at": "2022-09-11T07:33:21.491Z",
-            "buyr_update_at": "2022-09-11T07:33:21.491Z",
-            "buyr_delete_at": null,
-            "buyr_name": "장성우",
-            "buyr_city": "incheon",
-            "buyr_zpix": "20902",
-            "buyr_vccode": 82,
-            "buyr_country": "KR"
-        },
-  */
 
   async getPaymentFilter(status: string) {
     const queryResult = await this.paymentRepository
@@ -78,5 +57,23 @@ export class PaymentService {
       .getMany();
 
     return queryResult;
+  }
+
+  async updateDeliveryState(updateDeliveryStateDto: UpdateDeliveryStateDto) {
+    const { delivery_state, id } = updateDeliveryStateDto;
+    const payment = await this.paymentRepository
+      .createQueryBuilder('payment')
+      .update()
+      .set({ delivery_state })
+      .where('payment.id = :id', { id })
+      .execute();
+
+    if (payment.affected)
+      return await this.paymentRepository
+        .createQueryBuilder('payment')
+        .where('payment.id = :id', { id })
+        .getOne();
+
+    throw new ForbiddenException('알 수 없는 오류');
   }
 }

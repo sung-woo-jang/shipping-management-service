@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from 'class-validator';
 import { CommonEntity } from './../../../common/entities/common-entity';
-import { Column, Entity, ManyToMany, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 import { Payment } from './../../payment/entities/payment.entity';
 
 @Entity()
@@ -30,7 +30,7 @@ export class Buyr extends CommonEntity {
     required: true,
   })
   @Column()
-  zpix: string;
+  zipx: string;
 
   @ApiProperty({
     example: '82',
