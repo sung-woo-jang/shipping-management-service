@@ -18,4 +18,10 @@ export class PaymentService {
 
     return result;
   }
+
+  async getPaymentList() {
+    const list = await this.paymentRepository.find();
+
+    return list;
+  }
 }

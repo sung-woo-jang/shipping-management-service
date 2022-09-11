@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CreatePaymentDto } from './dto/create-payment.dto';
 import { PaymentService } from './payment.service';
 
@@ -13,7 +13,10 @@ export class PaymentController {
   }
 
   //Get 주문내역 열람
-  // getPaymentList
+  @Get()
+  async getPaymentList() {
+    return await this.paymentService.getPaymentList();
+  }
 
   //Get 주문내역 검색
   // 주문 상태, 시작일자, 종료일자에 따른 필터
