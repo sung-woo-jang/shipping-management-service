@@ -1,9 +1,16 @@
-import { Controller } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
+import { CreatePaymentDto } from './dto/create-payment.dto';
 import { PaymentService } from './payment.service';
 
 @Controller('payment')
 export class PaymentController {
   constructor(private readonly paymentService: PaymentService) {}
+
+  // Post 구매 내역 추가
+  @Post('')
+  async createPayment(@Body() createPaymentDto: CreatePaymentDto) {
+    return await this.paymentService.createPayment(createPaymentDto);
+  }
 
   //Get 주문내역 열람
   // getPaymentList

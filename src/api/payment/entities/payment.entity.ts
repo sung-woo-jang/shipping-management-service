@@ -1,6 +1,12 @@
 import { CommonEntity } from './../../../common/entities/common-entity';
 import { Column, Entity } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsEnum } from 'class-validator';
+
+export enum PayState {
+  Completion = '결제완료',
+  Cancellation = '결제취소',
+}
 
 @Entity()
 export class Payment extends CommonEntity {
@@ -8,8 +14,9 @@ export class Payment extends CommonEntity {
     example: '배송 상태',
     required: true,
   })
-  @Column()
-  pay_state: string;
+  @Column({ default: PayState.Completion })
+  @IsEnum(PayState)
+  pay_state: PayState;
 
   @ApiProperty({
     example: '주문 수량',
