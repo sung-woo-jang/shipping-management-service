@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { Buyr } from '../buyr/entities/buyr.entity';
 import { CreatePaymentDto } from './dto/create-payment.dto';
 import { Payment } from './entities/payment.entity';
 
@@ -9,14 +10,23 @@ export class PaymentService {
   constructor(
     @InjectRepository(Payment)
     private readonly paymentRepository: Repository<Payment>,
+    @InjectRepository(Buyr)
+    private readonly buyrRepository: Repository<Buyr>,
   ) {}
 
   async createPayment(createPaymentDto: CreatePaymentDto) {
-    const payment = this.paymentRepository.create(createPaymentDto);
+    const buyr = await this.buyrRepository
+      .createQueryBuilder('buyr')
+      .andWhere('buyr.id = :id', { id: 1 })
+      .getOne();
 
-    const result = await this.paymentRepository.save(payment);
+    const payment = await this.paymentRepository
+      .createQueryBuilder('payment')
+      .insert()
+      .values({ ...createPaymentDto, buyr })
+      .execute();
 
-    return result;
+    return payment;
   }
 
   async getPaymentList() {
