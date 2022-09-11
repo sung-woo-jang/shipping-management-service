@@ -1,7 +1,15 @@
 import { CommonEntity } from './../../../common/entities/common-entity';
-import { Column, Entity } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum } from 'class-validator';
+import { Buyr } from './../../buyr/entities/buyr.entity';
 
 export enum PayState {
   Completion = '결제완료',
@@ -37,4 +45,7 @@ export class Payment extends CommonEntity {
   })
   @Column()
   delivery_num: string | null;
+
+  @ManyToOne(() => Buyr, (buyr) => buyr.payments)
+  buyr: Buyr;
 }

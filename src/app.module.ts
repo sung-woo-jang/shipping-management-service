@@ -8,6 +8,7 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import { typeOrmAsyncModuleOptions } from './config/typeorm.config';
 import { PaymentModule } from './api/payment/payment.module';
 import * as Joi from 'joi';
+import { BuyrModule } from './api/buyr/buyr.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import * as Joi from 'joi';
     TypeOrmModule.forRootAsync(typeOrmAsyncModuleOptions),
     ExampleModule,
     PaymentModule,
+    BuyrModule,
   ],
   controllers: [AppController],
   providers: [AppService],
