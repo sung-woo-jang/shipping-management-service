@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { Buyr } from '../buyr/entities/buyr.entity';
 import { CreatePaymentDto } from './dto/create-payment.dto';
 import { UpdateDeliveryStateDto } from './dto/update-payment.dto';
-import { DeliveryState, Payment } from './entities/payment.entity';
+import { Payment } from './entities/payment.entity';
 
 @Injectable()
 export class PaymentService {
@@ -39,6 +39,7 @@ export class PaymentService {
         'payment.pay_state as pay_state',
         'payment.quantity as quantity',
         'payment.price as price',
+        'payment.delivery_state as delivery_state',
         'buyr.city',
         'buyr.country',
         'buyr.zipx',
