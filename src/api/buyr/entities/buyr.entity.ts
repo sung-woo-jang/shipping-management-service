@@ -1,8 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from 'class-validator';
 import { CommonEntity } from './../../../common/entities/common-entity';
-import { Column, Entity, OneToMany } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm';
 import { Payment } from './../../payment/entities/payment.entity';
+import { Country } from './../../../common/entities/country.entity';
 
 @Entity()
 export class Buyr extends CommonEntity {
@@ -32,22 +33,10 @@ export class Buyr extends CommonEntity {
   @Column()
   zipx: string;
 
-  @ApiProperty({
-    example: '82',
-    description: '국가 코드번호',
-    required: true,
-  })
-  @Column()
-  vccode: number;
-
-  @ApiProperty({
-    example: 'KR',
-    description: '국가 코드명',
-    required: true,
-  })
-  @Column()
-  country: string;
-
   @OneToMany(() => Payment, (payment) => payment.buyr)
   payments: Payment[];
+
+  @OneToOne(() => Country, (country) => country.buyr)
+  @JoinColumn()
+  country: Country;
 }
