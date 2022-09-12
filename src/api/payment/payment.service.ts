@@ -16,15 +16,17 @@ export class PaymentService {
   ) {}
 
   async createPayment(createPaymentDto: CreatePaymentDto) {
+    const { quantity, price, delivery_num, buyrId } = createPaymentDto;
     const buyr = await this.buyrRepository
       .createQueryBuilder('buyr')
-      .andWhere('buyr.id = :id', { id: 1 })
+      .leftJoinAndSelect('buyr.country', 'country')
+      .andWhere('buyr.id = :buyrId', { buyrId })
       .getOne();
 
     const payment = await this.paymentRepository
       .createQueryBuilder('payment')
       .insert()
-      .values({ ...createPaymentDto, buyr })
+      .values({ quantity, price: price * quantity, delivery_num, buyr })
       .execute();
 
     return payment.raw;
@@ -40,11 +42,10 @@ export class PaymentService {
         'payment.quantity as quantity',
         'payment.price as price',
         'payment.delivery_state as delivery_state',
-        'buyr.city',
-        'buyr.country',
-        'buyr.zipx',
-        'buyr.vccode',
         'payment.delivery_num as delivery_num',
+        'buyr.name as name',
+        'buyr.city as city',
+        'buyr.zipx as zipx',
       ])
       .getRawMany();
 

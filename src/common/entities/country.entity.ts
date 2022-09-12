@@ -1,14 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Buyr } from './../../api/buyr/entities/buyr.entity';
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  OneToMany,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Country {

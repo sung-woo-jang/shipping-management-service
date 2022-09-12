@@ -6,33 +6,33 @@ export class VoucherCodeGenerator {
   //
   static generateFlatDiscountVoucher() {
     return voucher_codes.generate({
-      length: 8,
+      length: 10,
       count: 1,
       charset: voucher_codes.charset('alphanumeric'),
-      prefix: 'flat-',
-      postfix: `-${new Date().getFullYear()}`,
+      prefix: 'F',
+      postfix: `${new Date().getFullYear()}`,
     });
   }
 
   // 배송비 할인
   static generateDeliveryDiscountVoucher() {
     return voucher_codes.generate({
-      length: 8,
+      length: 10,
       count: 1,
       charset: voucher_codes.charset('alphanumeric'),
-      prefix: 'delivery-',
-      postfix: `-${new Date().getFullYear()}`,
+      prefix: 'D',
+      postfix: `${new Date().getFullYear()}`,
     });
   }
 
   // % 할인 - 특정 상품에 관하여 할인 쿠폰 제공
   static generatePercentageDiscountVoucher() {
     return voucher_codes.generate({
-      length: 8,
+      length: 10,
       count: 1,
       charset: voucher_codes.charset('alphanumeric'),
-      prefix: 'percentage-',
-      postfix: `-${new Date().getFullYear()}`,
+      prefix: 'P',
+      postfix: `${new Date().getFullYear()}`,
     });
   }
 }
