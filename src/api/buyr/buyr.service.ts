@@ -30,4 +30,12 @@ export class BuyrService {
 
     return buyr.raw;
   }
+
+  async getBuyr(id: number) {
+    return await this.buyrRepository
+      .createQueryBuilder('buyr')
+      .leftJoinAndSelect('buyr.country', 'country')
+      .where('buyr.id = :id', { id })
+      .getRawOne();
+  }
 }
