@@ -9,6 +9,7 @@ import { typeOrmAsyncModuleOptions } from './config/typeorm.config';
 import { PaymentModule } from './api/payment/payment.module';
 import * as Joi from 'joi';
 import { BuyrModule } from './api/buyr/buyr.module';
+import { VouchersModule } from './api/vouchers/vouchers.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { BuyrModule } from './api/buyr/buyr.module';
     ExampleModule,
     PaymentModule,
     BuyrModule,
+    VouchersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
