@@ -8,6 +8,8 @@ export class PaymentController {
   constructor(private readonly paymentService: PaymentService) {}
 
   // Post 구매 내역 추가
+  // 구매 국가, 구매 갯수에 따른 배송비 적용
+  // 쿠폰 사용에 따른 사용 할인 적용
   @Post('/')
   async createPayment(@Body() createPaymentDto: CreatePaymentDto) {
     return await this.paymentService.createPayment(createPaymentDto);
