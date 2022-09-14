@@ -9,10 +9,10 @@ import {
  */
 export class CommonResponse {
   // 200
-  static OkResponse() {
+  static OkResponse(dto, isArray = false) {
     return {
       description: 'Ok',
-      type: responseFormatter({}),
+      type: responseFormatter(dto, isArray),
     };
   }
 
