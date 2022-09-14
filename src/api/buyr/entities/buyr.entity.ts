@@ -11,6 +11,7 @@ import {
 } from 'typeorm';
 import { Payment } from './../../payment/entities/payment.entity';
 import { Country } from './../../../common/entities/country.entity';
+import { Voucher } from './../../../api/vouchers/entities/voucher.entity';
 
 @Entity()
 export class Buyr extends CommonEntity {
@@ -45,4 +46,7 @@ export class Buyr extends CommonEntity {
 
   @ManyToOne(() => Country, (country) => country.buyr)
   country: Country;
+
+  @OneToOne(() => Voucher, (voucher) => voucher.buyr)
+  voucher: Voucher;
 }
