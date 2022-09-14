@@ -1,70 +1,61 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# weather-board-service API Server
 
-# NestJS & TypeORM Template
+<div align="center">
+  <img src="https://img.shields.io/badge/node-16.17.0-339933?logo=node.js"> 
+  <img src="https://img.shields.io/badge/NestJS-9.0.0-E0234E?logo=NestJS"> 
+  <img src="https://img.shields.io/badge/TypeScript-4.4.5-3178C6?logo=typescript"> 
+  <img src="https://img.shields.io/badge/MySQL-8.0.11-4479A1?logo=mysql"> 
+  <img src="https://img.shields.io/badge/Swagger-6.1.0-DC382D?logo=swagger"> 
+  <img src="https://img.shields.io/badge/TypeORM-0.3.9-010101"> 
+</div>
 
-## Description
+## 소개
 
-NestJS & TypeORM(sqlite3) 프로젝트 기본 템플릿입니다.
+> 쇼핑몰 관리 페이지 API 입니다.
 
-- Swagger
-- HttpException & ResponseInterceptor
-- Request Logger
-- Example API
+---
 
-## Version
-
-- Node : v16.17.0
-- NPM : 8.15.0
-
-## Installation
+## 테스트 방법
 
 ```bash
-$ npm install
+$ npm i
+$ npm start:dev
 ```
 
-## Running the app
+---
 
-```bash
-# development
-$ npm run start
+## 1. 서비스 개요
 
-# watch mode
-$ npm run start:dev
+- 본 서비스는 쇼핑몰 관리자 페이지 서비스입니다.
+- 주문내역을 주문자명으로 검색 또는 필터링하여 검색하는 기능이 제공됩니다.
+- (예정) 해외 구매 고객을 위해 실시간 환율로 배송비 적용 API 구현 예정입니다..
 
-# production mode
-$ npm run start:prod
-```
+## 2. 구현 사항
 
-## Test
+### 주문 관리
 
-```bash
-# unit tests
-$ npm run test
+- 제품 주문 내역 열람
+- 주문 내역 검색
+- 주문 상태에 따른 필터
+- 주문건에 대하여 발송 처리
 
-# e2e tests
-$ npm run test:e2e
+### 쿠폰관리
 
-# test coverage
-$ npm run test:cov
-```
+- 할인쿠폰 발급
+  - 배송비 할인 쿠폰
+  - % 할인 쿠폰
+  - 정액 할인 쿠폰
 
-## Docker
+## 3. ERD
 
-```bash
-# Build
-docker build -t nestjs-typeorm-template .
+<img width="785" alt="스크린샷 2022-09-01 오후 10 44 18" src="https://user-images.githubusercontent.com/54757435/190148834-18f24ad5-d19d-4dcd-92fa-d4e9aef6efc4.png">
+</br>
 
-# RUN
-docker run -d -p 3000:3000 nestjs-typeorm-template
-```
+## 5. Swagger
 
-## Stay in touch
+- API를 테스트는 Swagger를 이용해 가능합니다.
+- URL: localhost:3000/docs
 
-- Author - [dev.ksanbal](https://github.com/Ksanbal)
-- Blog - [https://devksanbal.notion.site](https://devksanbal.notion.site/dev-ksanbal-93ace024e8c24f55b06830ca6473e7e4)
+# 참조문서
 
-## License
-
-[MIT licensed](LICENSE).
+## 📌 [개발 컨벤션](https://www.notion.so/2-Convention-Code-8b023eef6eef4e679704a8e32c8ddf38)
